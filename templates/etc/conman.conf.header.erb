@@ -1,0 +1,25 @@
+######## Managed by Puppet #########
+# <%= @servername %>:<%= @__file__ %>
+# ConMan daemon configuration file
+#
+# server config
+server port=<%= @port %>
+server keepalive=<% if @keepalive %>on<% else %>off<% end %>
+server loopback=<% if @loopback %>on<% else %>off<% end %>
+<% if @resetemc!='' -%>
+server resetcmd="<%= @resetcmd %>"
+<% else -%>
+# server resetcmd="<str>"
+<% end -%>
+server timestamp=<% @timestamp %>
+
+# global config
+global seropts="<%= @seropts %>"
+<% if @ipmiopts!='' -%>
+global ipmiopts="<%= @ipmiopts %>"
+<% end -%>
+
+##
+# console name="<str>" dev="<str>" \
+#   [log="<file>"] [logopts="<str>"] [seropts="<str>"] [ipmiopts="<str>"]
+##

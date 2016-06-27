@@ -1,0 +1,14 @@
+class conman::params {
+  # borrowing liberally from https://github.com/ULHPC/puppet-conman/blob/devel/manifests/params.pp
+  $service_enable = true
+  $service_ensure = true
+  $cfgfile = "/etc/conman.conf"
+  $conman_server = $::fqdn
+  $conman_port = '7890'
+  $keepalive = true
+  $loopback = false
+  $resetcmd = ''
+  $timestamp = 0
+  $serialopts = '9600,8n1'
+  $ipmiopts = ''
+}
