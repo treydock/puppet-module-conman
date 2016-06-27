@@ -7,6 +7,7 @@ class conman::params {
   $conman_port = '7890'
   $keepalive = true
   $loopback = false
+  $tcpwrappers = false
   $resetcmd = ''
   $timestamp = 0
   $serialopts = '9600,8n1'

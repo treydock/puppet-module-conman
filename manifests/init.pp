@@ -6,6 +6,7 @@ class conman(
     $cfgfile = hiera('conman::cfg::cfgfile',$conman::params::cfgfile),
     $keepalive = hiera('conman::cfg::keepalive',$conman::params::keepalive),
     $loopback = hiera('conman::cfg::loopback',$conman::params::loopback),
+    $tcpwrappers = hiera('conman::cfg::tcpwrappers',$conman::params::tcpwrappers),
     $resetcmd = hiera('conman::cfg::resetcmd',$conman::params::resetcmd),
     $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
     $serialopts = hiera('conman::cfg::serialopts',$conman::params::serialopts),
