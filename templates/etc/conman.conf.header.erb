@@ -3,11 +3,11 @@
 # ConMan daemon configuration file
 #
 # server config
-server port=<%= @port %>
+server port=<%= @conman_port %>
 server tcpwrappers=<% if @tcpwrappers %>on<% else %>off<% end %>
 server keepalive=<% if @keepalive %>on<% else %>off<% end %>
 server loopback=<% if @loopback %>on<% else %>off<% end %>
-<% if @resetemc!='' -%>
+<% if @resetcmd != '' -%>
 server resetcmd="<%= @resetcmd %>"
 <% else -%>
 # server resetcmd="<str>"
