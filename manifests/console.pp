@@ -1,7 +1,6 @@
 # inspired by https://github.com/ULHPC/puppet-conman/blob/devel/manifests/console.pp
 define conman::console(
-  $consolename,
-  $consoledevice,
+  $device,
   $logfile = '',
   $logopts = '',
   $seropts = '',
@@ -9,7 +8,7 @@ define conman::console(
   $cfgfile = $conman::params::cfgfile,
   $order = '50'
 ){
-  concat::fragment { "conman.conf.$consolename":
+  concat::fragment { "conman.conf.$name":
     target  => $cfgfile,
     content => template("conman/etc/conman.conf.console.erb"),
     order   => $order,
