@@ -2,11 +2,11 @@
 define conman::console(
   $consolename,
   $consoledevice,
-  $cfgfile = $conman::params::cfgfile,
   $logfile = '',
   $logopts = '',
   $seropts = '',
   $ipmiopts = '',
+  $cfgfile = $conman::params::cfgfile,
   $order = '50'
 ){
   concat::fragment { "conman.conf.$consolename":
