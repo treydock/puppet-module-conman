@@ -11,7 +11,7 @@ class conman(
     $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
     $serialopts = hiera('conman::cfg::serialopts',$conman::params::serialopts),
     $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
-  ) inheirits conman::params {
+  ) inherits conman::params {
 
   # packages
   package { "conman":
@@ -23,13 +23,13 @@ class conman(
     ensure => present,
     owner   => root,
     group   => root,
-    mode    => 0644,
+    mode    => '0644',
     require => Package["conman"],
   }
   concat::fragment { "conman.conf.header":
     target  => $cfgfile,
-    content => template("conman/conman.conf.header.erb"),
-    order   => 01,
+    content => template("conman/etc/conman.conf.header.erb"),
+    order   => '01',
   }
   # service
   service { "conman":
@@ -42,16 +42,16 @@ class conman(
   # environment files
   file { "/etc/profile.d/conman.sh":
     ensure  => present,
-    content => template("conman/etc/conman.sh.erb"),
+    content => template("conman/etc/profile.d/conman.sh.erb"),
     owner   => root,
     group   => root,
-    mode    => 0644,
+    mode    => '0644',
   }
   file { "/etc/profile.d/conman.csh":
     ensure  => present,
-    content => template("conman/etc/conman.csh.erb"),
+    content => template("conman/etc/profile.d/conman.csh.erb"),
     owner   => root,
     group   => root,
-    mode    => 0644,
+    mode    => '0644',
   }
 }
