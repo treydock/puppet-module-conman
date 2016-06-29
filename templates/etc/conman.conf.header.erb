@@ -12,9 +12,15 @@ server resetcmd="<%= @resetcmd %>"
 <% else -%>
 # server resetcmd="<str>"
 <% end -%>
+<% if @syslog != '' -%>
+server syslog="<%= @syslog %>"
+<% end -%>
 server timestamp=<%= @timestamp %>
 
 # global config
+<% if @log != '' -%>
+global log="<%= @log %>"
+<% end -%>
 global seropts="<%= @seropts %>"
 <% if @ipmiopts!='' -%>
 global ipmiopts="<%= @ipmiopts %>"

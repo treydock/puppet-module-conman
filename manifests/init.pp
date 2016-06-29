@@ -8,7 +8,9 @@ class conman(
     $loopback = hiera('conman::cfg::loopback',$conman::params::loopback),
     $tcpwrappers = hiera('conman::cfg::tcpwrappers',$conman::params::tcpwrappers),
     $resetcmd = hiera('conman::cfg::resetcmd',$conman::params::resetcmd),
+    $syslog = hiera('conman::cfg::syslog', $conman::params::syslog),
     $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
+    $log = hiera('conman::cfg::log', $conman::params::log),
     $seropts = hiera('conman::cfg::seropts',$conman::params::seropts),
     $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
   ) inherits conman::params {

@@ -9,7 +9,9 @@ class conman::params {
   $loopback = false
   $tcpwrappers = false
   $resetcmd = ''
+  $syslog = ''
   $timestamp = 0
+  $log = ''
   $seropts = '9600,8n1'
   $ipmiopts = ''
 }
