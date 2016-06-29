@@ -10,6 +10,6 @@ class conman::params {
   $tcpwrappers = false
   $resetcmd = ''
   $timestamp = 0
-  $serialopts = '9600,8n1'
+  $seropts = '9600,8n1'
   $ipmiopts = ''
 }

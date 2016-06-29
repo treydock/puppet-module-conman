@@ -9,7 +9,7 @@ class conman(
     $tcpwrappers = hiera('conman::cfg::tcpwrappers',$conman::params::tcpwrappers),
     $resetcmd = hiera('conman::cfg::resetcmd',$conman::params::resetcmd),
     $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
-    $serialopts = hiera('conman::cfg::serialopts',$conman::params::serialopts),
+    $seropts = hiera('conman::cfg::seropts',$conman::params::seropts),
     $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
   ) inherits conman::params {
 
