@@ -1,5 +1,5 @@
 ######### Managed by Puppet #########
-# <%= @servername %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__ %>
 export CONMAN_HOST=<%= @conman_server %>
 export CONMAN_PORT=<%= @conman_port %>
 
