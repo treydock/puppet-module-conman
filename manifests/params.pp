@@ -9,6 +9,7 @@ class conman::params {
   $loopback = false
   $tcpwrappers = false
   $resetcmd = ''
+  $logfile = ''
   $syslog = ''
   $timestamp = 0
   $log = ''

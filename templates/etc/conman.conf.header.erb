@@ -12,6 +12,9 @@ server resetcmd="<%= @resetcmd %>"
 <% else -%>
 # server resetcmd="<str>"
 <% end -%>
+<% if @logfile != '' -%>
+server logfile="<%= @logfile %>"
+<% end -%>
 <% if @syslog != '' -%>
 server syslog="<%= @syslog %>"
 <% end -%>
