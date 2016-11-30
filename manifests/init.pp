@@ -14,6 +14,7 @@ class conman(
     $log = hiera('conman::cfg::log', $conman::params::log),
     $seropts = hiera('conman::cfg::seropts',$conman::params::seropts),
     $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
+    $consoles = {},
   ) inherits conman::params {
 
   # packages
@@ -57,4 +58,7 @@ class conman(
     group   => root,
     mode    => '0644',
   }
+
+  create_resources('conman::console', $consoles)
+
 }
