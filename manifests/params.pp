@@ -13,6 +13,8 @@ class conman::params {
   $syslog = ''
   $timestamp = 0
   $log = ''
+  $coredump = false
+  $coredumpdir = ''
   $seropts = '9600,8n1'
   $ipmiopts = ''
 }

@@ -19,6 +19,10 @@ server logfile="<%= @logfile %>"
 server syslog="<%= @syslog %>"
 <% end -%>
 server timestamp=<%= @timestamp %>
+server coredump=<% if @coredump %>on<% else %>off<% end %>
+<% if @coredumpdir != '' -%>
+server coredumpdir=<%= @coredumpdir %>
+<% end -%>
 
 # global config
 <% if @log != '' -%>

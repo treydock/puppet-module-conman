@@ -12,6 +12,8 @@ class conman(
     $syslog = hiera('conman::cfg::syslog', $conman::params::syslog),
     $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
     $log = hiera('conman::cfg::log', $conman::params::log),
+    $coredump = hiera('conman::cfg::coredump', $conman::params::coredump),
+    $coredumpdir = hiera('conman::cfg::coredumpdir', $conman::params::coredumpdir),
     $seropts = hiera('conman::cfg::seropts',$conman::params::seropts),
     $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
     $consoles = {},
