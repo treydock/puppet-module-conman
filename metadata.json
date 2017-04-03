@@ -1,0 +1,15 @@
+{
+  "name": "osc-conman",
+  "version": "0.0.1",
+  "author": "osc",
+  "summary": "conman Puppet module",
+  "license": "Apache 2.0",
+  "source": "git://github.com/osc/puppet-conman.git",
+  "issues_url": "https://github.com/osc/puppet-conman/issues",
+  "project_page": "https://github.com/osc/puppet-conman",
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_range": ">= 3.2.0 <5.0.0" },
+    { "name": "puppetlabs/concat", "version_range": ">= 1.0.0 <3.0.0" }
+  ]
+}
+
