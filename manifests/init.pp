@@ -1,66 +1,90 @@
-class conman(
-    $service_enable = hiera('conman::service::enable',$conman::params::service_enable),
-    $service_ensure = hiera('conman::service::ensure',$conman::params::service_ensure),
-    $conman_server = hiera('conman::service::hostname',$conman::params::conman_server),
-    $conman_port = hiera('conman::service::port',$conman::params::conman_port),
-    $cfgfile = hiera('conman::cfg::cfgfile',$conman::params::cfgfile),
-    $keepalive = hiera('conman::cfg::keepalive',$conman::params::keepalive),
-    $loopback = hiera('conman::cfg::loopback',$conman::params::loopback),
-    $tcpwrappers = hiera('conman::cfg::tcpwrappers',$conman::params::tcpwrappers),
-    $resetcmd = hiera('conman::cfg::resetcmd',$conman::params::resetcmd),
-    $logfile = hiera('conman::cfg::logfile', $conman::params::logfile),
-    $syslog = hiera('conman::cfg::syslog', $conman::params::syslog),
-    $timestamp = hiera('conman::cfg::timestamp',$conman::params::timestamp),
-    $log = hiera('conman::cfg::log', $conman::params::log),
-    $coredump = hiera('conman::cfg::coredump', $conman::params::coredump),
-    $coredumpdir = hiera('conman::cfg::coredumpdir', $conman::params::coredumpdir),
-    $seropts = hiera('conman::cfg::seropts',$conman::params::seropts),
-    $ipmiopts = hiera('conman::cfg::ipmiopts',$conman::params::ipmiopts),
-    $consoles = {},
-  ) inherits conman::params {
+#
+class conman (
+  Boolean $server = true,
+  Boolean $client = true,
+  Enum['present', 'absent'] $ensure = 'present',
+  String $conman_server = $::fqdn,
+  Integer $conman_port = 7890,
+  String $cfgfile = '/etc/conman.conf',
+  Boolean $keepalive = true,
+  Boolean $loopback = false,
+  Boolean $tcpwrappers = false,
+  String $resetcmd = '',
+  String $logfile = '',
+  String $syslog = '',
+  String $timestamp = '0',
+  String $log = '',
+  Boolean $coredump = false,
+  String $coredumpdir = '',
+  String $seropts = '9600,8n1',
+  String $ipmiopts = '',
+  Hash $consoles = {},
+) inherits conman::params {
 
-  # packages
-  package { "conman":
-    ensure => present,
-  }
-
-  # config file
-  concat { $cfgfile:
-    ensure => present,
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    require => Package["conman"],
-  }
-  concat::fragment { "conman.conf.header":
-    target  => $cfgfile,
-    content => template("conman/etc/conman.conf.header.erb"),
-    order   => '01',
-  }
-  # service
-  service { "conman":
-    enable    => $service_enable,
-    ensure    => $service_ensure,
-    require   => Concat[$cfgfile],
-    subscribe => Concat[$cfgfile]
+  if $ensure == 'present' {
+    $package_ensure = 'present'
+    $file_ensure    = 'file'
+    if $server {
+      $service_ensure = 'running'
+      $service_enable = true
+    } else {
+      $service_ensure = 'stopped'
+      $service_enable = false
+    }
+  } else {
+    $package_ensure = 'absent'
+    $file_ensure    = 'absent'
+    $service_ensure = 'stopped'
+    $service_enable = false
   }
 
-  # environment files
-  file { "/etc/profile.d/conman.sh":
-    ensure  => present,
-    content => template("conman/etc/profile.d/conman.sh.erb"),
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-  }
-  file { "/etc/profile.d/conman.csh":
-    ensure  => present,
-    content => template("conman/etc/profile.d/conman.csh.erb"),
-    owner   => root,
-    group   => root,
-    mode    => '0644',
+  package { 'conman':
+    ensure => $package_ensure,
   }
 
-  create_resources('conman::console', $consoles)
+  if $server {
+    concat { $cfgfile:
+      ensure  => $ensure,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package['conman'],
+    }
+    concat::fragment { 'conman.conf.header':
+      target  => $cfgfile,
+      content => template('conman/etc/conman.conf.header.erb'),
+      order   => '01',
+    }
+    create_resources('conman::console', $consoles)
+
+    service { 'conman':
+      ensure     => $service_ensure,
+      enable     => $service_enable,
+      hasrestart => true,
+      hasstatus  => true,
+      subscribe  => Concat[$cfgfile],
+    }
+  } else {
+    service { 'conman':
+      ensure  => $service_ensure,
+      enable  => $service_enable,
+      require => Package['conman'],
+    }
+
+    file { '/etc/profile.d/conman.sh':
+      ensure  => $file_ensure,
+      content => template('conman/etc/profile.d/conman.sh.erb'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
+    file { '/etc/profile.d/conman.csh':
+      ensure  => $file_ensure,
+      content => template('conman/etc/profile.d/conman.csh.erb'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
+  }
 
 }
