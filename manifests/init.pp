@@ -47,7 +47,7 @@ class conman (
       ensure    => $ensure,
       owner     => 'root',
       group     => 'root',
-      mode      => '0644',
+      mode      => '0640',
       show_diff => false,
       require   => Package['conman'],
     }
