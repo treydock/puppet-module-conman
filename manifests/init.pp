@@ -44,11 +44,12 @@ class conman (
 
   if $server {
     concat { $cfgfile:
-      ensure  => $ensure,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      require => Package['conman'],
+      ensure    => $ensure,
+      owner     => 'root',
+      group     => 'root',
+      mode      => '0644',
+      show_diff => false,
+      require   => Package['conman'],
     }
     concat::fragment { 'conman.conf.header':
       target  => $cfgfile,
