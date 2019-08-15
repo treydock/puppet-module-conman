@@ -1,1 +1,8 @@
-console name="<%= @name %>" dev="<%= @device %>" <% if @logfile != '' %>log="<%= @logfile %>"<% end %> <% if @logopts != '' %>logopts="<%= @logopts %>"<% end %> <% if @seropts != '' %> seropts="<%= @seropts %>"<% end %> <% if @ipmiopts != '' %>ipmiopts="<%= @ipmiopts %>"<% end %>
+<%-
+console = ["name=\"#{@name}\"", "dev=\"#{@device}\""]
+console << "log=\"#{@log}\"" if @log
+console << "logopts=\"#{@logopts}\"" if @logopts
+console << "seropts=\"#{@seropts}\"" if @seropts
+console << "ipmiopts=\"#{@ipmiopts}\"" if @ipmiopts
+-%>
+console <%= console.join(' ') %>

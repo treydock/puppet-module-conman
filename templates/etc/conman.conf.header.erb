@@ -1,36 +1,45 @@
 ######## Managed by Puppet #########
-# <%= scope['settings::server'] %>:<%= @__file__.gsub(/\/environments\/([a-zA-Z0-9_\-]+)\//, "/environments/$::environment/") %>
 
 # ConMan daemon configuration file
 #
 # server config
-server port=<%= @conman_port %>
-#server tcpwrappers=<% if @tcpwrappers %>on<% else %>off<% end %>
-server keepalive=<% if @keepalive %>on<% else %>off<% end %>
-server loopback=<% if @loopback %>on<% else %>off<% end %>
-<% if @resetcmd != '' -%>
-server resetcmd="<%= @resetcmd %>"
-<% else -%>
-# server resetcmd="<str>"
-<% end -%>
-<% if @logfile != '' -%>
-server logfile="<%= @logfile %>"
-<% end -%>
-<% if @syslog != '' -%>
-server syslog="<%= @syslog %>"
-<% end -%>
-server timestamp=<%= @timestamp %>
 server coredump=<% if @coredump %>on<% else %>off<% end %>
-<% if @coredumpdir != '' -%>
+<% if @coredumpdir -%>
 server coredumpdir="<%= @coredumpdir %>"
 <% end -%>
+<%- if @execpath -%>
+server execpath="<%= @execpath %>"
+<%- end -%>
+server keepalive=<% if @keepalive %>on<% else %>off<% end %>
+<%- if @logdir -%>
+server logdir="<%= @logdir %>"
+<%- end -%>
+<%- if @logfile -%>
+server logfile="<%= @logfile %>"
+<%- end -%>
+server loopback=<% if @loopback %>on<% else %>off<% end %>
+<%- if @pidfile -%>
+server pidfile="<%= @pidfile %>"
+<%- end -%>
+server port=<%= @conman_port %>
+<% if @resetcmd -%>
+server resetcmd="<%= @resetcmd %>"
+<% end -%>
+<% if @syslog -%>
+server syslog="<%= @syslog %>"
+<% end -%>
+#server tcpwrappers=<% if @tcpwrappers %>on<% else %>off<% end %>
+server timestamp=<%= @timestamp %>
 
 # global config
-<% if @log != '' -%>
+<% if @log -%>
 global log="<%= @log %>"
 <% end -%>
+<%- if @logopts -%>
+global logopts="<%= @logopts %>"
+<%- end -%>
 global seropts="<%= @seropts %>"
-<% if @ipmiopts!='' -%>
+<% if @ipmiopts -%>
 global ipmiopts="<%= @ipmiopts %>"
 <% end -%>
 

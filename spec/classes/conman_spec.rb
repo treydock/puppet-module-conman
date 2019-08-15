@@ -15,7 +15,6 @@ describe 'conman' do
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to create_class('conman') }
-      it { is_expected.to contain_class('conman::params') }
 
       it do
         is_expected.to contain_package('conman').only_with(ensure: 'present',

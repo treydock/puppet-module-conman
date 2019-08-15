@@ -5,6 +5,10 @@ describe 'conman class:' do
     it 'runs successfully' do
       pp = <<-EOS
       class { 'conman': }
+      conman::console { 'compute01':
+        device   => 'ipmi:bmc-compute01',
+        ipmiopts => 'U:admin,P:bmcpassword',
+      }
       EOS
 
       apply_manifest(pp, catch_failures: true)
@@ -22,9 +26,10 @@ describe 'conman class:' do
 
     describe file('/etc/conman.conf') do
       it { is_expected.to be_file }
-      it { is_expected.to be_mode 644 }
+      it { is_expected.to be_mode 640 }
       it { is_expected.to be_owned_by 'root' }
       it { is_expected.to be_grouped_into 'root' }
+      its(:content) { is_expected.to match %r{^console name="compute01" dev="ipmi:bmc-compute01" ipmiopts="U:admin,P:bmcpassword"$} }
     end
   end
 end
