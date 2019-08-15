@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v0.1.2](https://github.com/treydock/puppet-module-conman/tree/v0.1.2) (2019-08-15)
+
+[Full Changelog](https://github.com/treydock/puppet-module-conman/compare/v0.1.1...v0.1.2)
+
+### Fixed
+
+- Remove client property, not used [\#5](https://github.com/treydock/puppet-module-conman/pull/5) ([treydock](https://github.com/treydock))
+
 ## [v0.1.1](https://github.com/treydock/puppet-module-conman/tree/v0.1.1) (2019-08-15)
 
 [Full Changelog](https://github.com/treydock/puppet-module-conman/compare/v0.1.0...v0.1.1)

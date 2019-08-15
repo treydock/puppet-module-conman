@@ -1,6 +1,6 @@
 {
   "name": "treydock-conman",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "treydock",
   "summary": "conman Puppet module",
   "license": "Apache-2.0",

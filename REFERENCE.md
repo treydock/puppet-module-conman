@@ -37,14 +37,6 @@ Boolean that sets host to act as conman server
 
 Default value: `true`
 
-##### `client`
-
-Data type: `Boolean`
-
-Boolean that sets host to act as conman client
-
-Default value: `true`
-
 ##### `ensure`
 
 Data type: `Enum['present', 'absent']`
