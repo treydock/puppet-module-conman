@@ -12,10 +12,6 @@
       collection: puppet5
     - set: centos-7
       collection: puppet6
-    - set: debian-8
-      collection: puppet5
-    - set: debian-8
-      collection: puppet6
     - set: debian-9
       collection: puppet5
     - set: debian-9
@@ -33,6 +29,8 @@
 .gitlab-ci.yml:
   delete: true
 appveyor.yml:
+  delete: true
+spec/acceptance/nodesets/debian-8.yml:
   delete: true
 spec/acceptance/nodesets/debian-10.yml:
   delete: true
