@@ -5,8 +5,6 @@
 #
 # @param server
 #   Boolean that sets host to act as conman server
-# @param client
-#   Boolean that sets host to act as conman client
 # @param ensure
 #   Module ensure property
 # @param conman_server
@@ -51,7 +49,6 @@
 #   See conman.conf man page
 class conman (
   Boolean $server = true,
-  Boolean $client = true,
   Enum['present', 'absent'] $ensure = 'present',
   Stdlib::Host $conman_server = $::fqdn,
   Stdlib::Port $conman_port = 7890,
