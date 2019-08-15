@@ -1,77 +1,58 @@
 # puppet-module-conman
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/conman.svg)](https://forge.puppetlabs.com/treydock/conman)
 [![Build Status](https://travis-ci.org/osc/puppet-module-conman.png)](https://travis-ci.org/osc/puppet-module-conman)
 
 ####Table of Contents
 
-1. [Overview](#overview)
-2. [Usage - Configuration options](#usage)
-3. [Reference - Parameter and detailed reference to all options](#reference)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
-6. [TODO](#todo)
-7. [Additional Information](#additional-information)
+1. [Setup - The basics of getting started with conman](#setup)
+    * [What conman affects](#what-conman-affects)
+2. [Usage - Configuration options and additional functionality](#usage)
+3. [Reference - Module reference](#reference)
 
-## Overview
+## Setup
 
+### What conman affects
 
+This module will install and configure [ConMan: The Console Manager](https://github.com/dun/conman).
 
 ## Usage
 
-### conman
+Install and configure conman and define a console
 
-    class { 'conman': }
+```puppet
+include ::conman
+conman::console { 'compute01':
+  device   => 'ipmi:bmc-compute01',
+  ipmiopts => 'U:admin,P:bmcpassword',
+}
+```
+
+To configure a system as a conman client:
+
+```puppet
+class { '::conman':
+  server        => false,
+  conman_server => 'conman.example.com',
+}
+```
+
+This is an example of exporting console configurations for all physical servers:
+
+```puppet
+if $facts['virtual'] == 'physical' {
+  @@conman::console { $::hostname:
+    device => "ipmi:bmc-${::hostname}",
+  }
+}
+```
+
+Then collect all the exported consoles:
+
+```puppet
+Conman::Console <<| |>>
+```
 
 ## Reference
 
-### Classes
-
-#### Public classes
-
-* `conman`: Installs and configures conman.
-
-#### Private classes
-
-* `conman::install`: Installs conman packages.
-* `conman::config`: Configures conman.
-* `conman::service`: Manages the conman service.
-* `conman::params`: Sets parameter defaults based on fact values.
-
-### Parameters
-
-#### conman
-
-#####`foo`
-
-## Limitations
-
-This module has been tested on:
-
-* CentOS 6 x86_64
-
-## Development
-
-### Testing
-
-Testing requires the following dependencies:
-
-* rake
-* bundler
-
-Install gem dependencies
-
-    bundle install
-
-Run unit tests
-
-    bundle exec rake test
-
-If you have Vagrant >= 1.2.0 installed you can run system tests
-
-    bundle exec rake beaker
-
-## TODO
-
-## Further Information
-
-*
+[http://treydock.github.io/puppet-module-conman/](http://treydock.github.io/puppet-module-conman/)
