@@ -1,15 +1,59 @@
 {
-  "name": "osc-conman",
-  "version": "0.0.1",
-  "author": "osc",
+  "name": "treydock-conman",
+  "version": "0.1.0",
+  "author": "treydock",
   "summary": "conman Puppet module",
-  "license": "Apache 2.0",
-  "source": "git://github.com/osc/puppet-conman.git",
-  "issues_url": "https://github.com/osc/puppet-conman/issues",
+  "license": "Apache-2.0",
+  "source": "https://github.com/osc/puppet-conman",
   "project_page": "https://github.com/osc/puppet-conman",
+  "issues_url": "https://github.com/osc/puppet-conman/issues",
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_range": ">= 3.2.0 <5.0.0" },
-    { "name": "puppetlabs/concat", "version_range": ">= 1.0.0 <3.0.0" }
-  ]
+      {
+        "name": "puppetlabs/stdlib",
+        "version_requirement": ">= 4.13.1 <6.0.0"
+      },
+      {
+        "name": "puppetlabs/concat",
+        "version_requirement": ">= 4.0.0 <7.0.0"
+      }
+  ],
+  "operatingsystem_support": [
+      {
+        "operatingsystem": "CentOS",
+        "operatingsystemrelease": [
+          "6",
+          "7"
+        ]
+      },
+      {
+        "operatingsystem": "OracleLinux",
+        "operatingsystemrelease": [
+          "6",
+          "7"
+        ]
+      },
+      {
+        "operatingsystem": "RedHat",
+        "operatingsystemrelease": [
+          "6",
+          "7"
+        ]
+      },
+      {
+        "operatingsystem": "Scientific",
+        "operatingsystemrelease": [
+          "6",
+          "7"
+        ]
+      }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.0.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.10.0",
+  "template-url": "https://github.com/treydock/pdk-templates.git#master",
+  "template-ref": "heads/master-0-g68ecb62"
 }
-
