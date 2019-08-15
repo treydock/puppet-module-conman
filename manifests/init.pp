@@ -68,7 +68,7 @@ class conman (
   Optional[Stdlib::Absolutepath] $pidfile = undef,
   Optional[String] $resetcmd = undef,
   Optional[String] $syslog = undef,
-  Boolean $tcpwrappers = false,
+  Optional[Boolean] $tcpwrappers = undef,
   String $timestamp = '0',
   # global config
   Optional[String] $log = undef,

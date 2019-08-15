@@ -28,7 +28,9 @@ server resetcmd="<%= @resetcmd %>"
 <% if @syslog -%>
 server syslog="<%= @syslog %>"
 <% end -%>
-#server tcpwrappers=<% if @tcpwrappers %>on<% else %>off<% end %>
+<%- if ! @tcpwrappers.nil? -%>
+server tcpwrappers=<% if @tcpwrappers %>on<% else %>off<% end %>
+<%- end -%>
 server timestamp=<%= @timestamp %>
 
 # global config
