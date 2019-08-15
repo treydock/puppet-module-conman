@@ -114,24 +114,6 @@
   
     <li>
       
-        <span class='name'>client</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Boolean that sets host to act as conman client</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
         <span class='name'>ensure</span>
       
       
@@ -518,6 +500,8 @@
         <pre class="lines">
 
 
+50
+51
 52
 53
 54
@@ -614,17 +598,13 @@
 145
 146
 147
-148
-149
-150
-151</pre>
+148</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 52</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 50</span>
 
 class conman (
   Boolean $server = true,
-  Boolean $client = true,
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure = &#39;present&#39;,
   Stdlib::Host $conman_server = $::fqdn,
   Stdlib::Port $conman_port = 7890,
