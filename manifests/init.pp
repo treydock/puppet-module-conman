@@ -1,25 +1,81 @@
+# @summary Manage conman
 #
+# @example
+#   include ::conman
+#
+# @param server
+#   Boolean that sets host to act as conman server
+# @param client
+#   Boolean that sets host to act as conman client
+# @param ensure
+#   Module ensure property
+# @param conman_server
+#   Hostname of conman server
+# @param conman_port
+#   The port for conman server
+# @param cfgfile
+#   The conman configuration file
+# @param consoles
+#   Hash of `conman::console` resources
+# @param coredump
+#   See conman.conf man page
+# @param coredumpdir
+#   See conman.conf man page
+# @param execpath
+#   See conman.conf man page
+# @param keepalive
+#   See conman.conf man page
+# @param logdir
+#   See conman.conf man page
+# @param logfile
+#   See conman.conf man page
+# @param loopback
+#   See conman.conf man page
+# @param pidfile
+#   See conman.conf man page
+# @param resetcmd
+#   See conman.conf man page
+# @param syslog
+#   See conman.conf man page
+# @param tcpwrappers
+#   See conman.conf man page
+# @param timestamp
+#   See conman.conf man page
+# @param log
+#   See conman.conf man page
+# @param logopts
+#   See conman.conf man page
+# @param seropts
+#   See conman.conf man page
+# @param ipmiopts
+#   See conman.conf man page
 class conman (
   Boolean $server = true,
   Boolean $client = true,
   Enum['present', 'absent'] $ensure = 'present',
-  String $conman_server = $::fqdn,
-  Integer $conman_port = 7890,
+  Stdlib::Host $conman_server = $::fqdn,
+  Stdlib::Port $conman_port = 7890,
   String $cfgfile = '/etc/conman.conf',
-  Boolean $keepalive = true,
-  Boolean $loopback = false,
-  Boolean $tcpwrappers = false,
-  String $resetcmd = '',
-  String $logfile = '',
-  String $syslog = '',
-  String $timestamp = '0',
-  String $log = '',
-  Boolean $coredump = false,
-  String $coredumpdir = '',
-  String $seropts = '9600,8n1',
-  String $ipmiopts = '',
   Hash $consoles = {},
-) inherits conman::params {
+  # server config
+  Boolean $coredump = false,
+  Optional[Stdlib::Absolutepath] $coredumpdir = undef,
+  Optional[String] $execpath = undef,
+  Boolean $keepalive = true,
+  Optional[Stdlib::Absolutepath] $logdir = undef,
+  Optional[String] $logfile = undef,
+  Boolean $loopback = false,
+  Optional[Stdlib::Absolutepath] $pidfile = undef,
+  Optional[String] $resetcmd = undef,
+  Optional[String] $syslog = undef,
+  Boolean $tcpwrappers = false,
+  String $timestamp = '0',
+  # global config
+  Optional[String] $log = undef,
+  Optional[String] $logopts = undef,
+  String $seropts = '9600,8n1',
+  Optional[String] $ipmiopts = undef,
+) {
 
   if $ensure == 'present' {
     $package_ensure = 'present'
@@ -56,7 +112,11 @@ class conman (
       content => template('conman/etc/conman.conf.header.erb'),
       order   => '01',
     }
-    create_resources('conman::console', $consoles)
+    $consoles.each |$console_name, $console| {
+      conman::console { $console_name:
+        * => $console,
+      }
+    }
 
     service { 'conman':
       ensure     => $service_ensure,
