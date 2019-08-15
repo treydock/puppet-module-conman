@@ -4,9 +4,9 @@
   "author": "treydock",
   "summary": "conman Puppet module",
   "license": "Apache-2.0",
-  "source": "https://github.com/osc/puppet-conman",
-  "project_page": "https://github.com/osc/puppet-conman",
-  "issues_url": "https://github.com/osc/puppet-conman/issues",
+  "source": "https://github.com/osc/puppet-module-conman",
+  "project_page": "https://github.com/osc/puppet-module-conman",
+  "issues_url": "https://github.com/osc/puppet-module-conman/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
