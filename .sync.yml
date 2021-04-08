@@ -1,36 +1,14 @@
 ---
-.travis.yml:
-  dist: xenial
-  docker_defaults:
-    dist: xenial
-  docker_sets:
-    - set: centos-6
-      collection: puppet5
-    - set: centos-6
-      collection: puppet6
-    - set: centos-7
-      collection: puppet5
-    - set: centos-7
-      collection: puppet6
-    - set: debian-9
-      collection: puppet5
-    - set: debian-9
-      collection: puppet6
-    - set: ubuntu-1604
-      collection: puppet5
-    - set: ubuntu-1604
-      collection: puppet6
-    - set: ubuntu-1804
-      collection: puppet5
-    - set: ubuntu-1804
-      collection: puppet6
-  user: treydock
-  secure: "Jx0RZAvlImhD3a8EXTFx0XIkJdCbRCMw1V8B5RjQaV5ZWRord4wRAYXC30qU4WxdihbhLFgDDYwhhVG/u/38czcZk9MdLQy4nUhcP7xKho09jJio6fcD0ZkDFDqvGnYX8aPeC8dsGThZa/mNNTdbv4j9zgVrs/8vdJ2arydO1nDUh89sKZ6Nkxt4uHzy3agsDqULetqVwL1qR8wb3BYbxiY1uQJZn+7nO5bVgXPyBzUbALpj6ZpOoQK4bGZ2Kis8N+E+Zfh3Kbb+tIel+ElRzCva148oG4GZeMXBGd7RqzJd3pp/Gt9+plRNX1UfyJjtfnMo7svChyVg7TnDPr0EsCaVrMlgsAGcipk95FJomQXxFVzAd+DfCPK4y9IWSNXYwyf6qqjqi1Gw4z5vJeG9dXlegNN5K0CQj+KfxWD6x2i21+QoEI3BQkunOiaD202GkRqPtLvHiEq+U8Z0IAEvbefRD2GPGe/aLG2JmpfnXaeAHYcfMXmIbR7PBXIy8CtrggbPeAAlCryNwwd3Ii0eeYsYNVOBneBYXPFvlYQzi6tPHYfC7P+67sf/ejYBBkQQxw33Fxu9XexyT7cM1M9oArWEpFx1jWcwkcJ5K9x2ElCiSasuCGHovnfWgHRDVUK5hmFxwOGECVnGe05rrmP2fLQ19mQluODQ6b48RZAqckg="
+.github/workflows/ci.yaml:
+  acceptance_matrix:
+    set:
+      - centos-7
+      - centos-8
+      - debian-9
+      - debian-10
+      - ubuntu-1804
+      - ubuntu-2004
 .gitlab-ci.yml:
   delete: true
 appveyor.yml:
-  delete: true
-spec/acceptance/nodesets/debian-8.yml:
-  delete: true
-spec/acceptance/nodesets/debian-10.yml:
   delete: true

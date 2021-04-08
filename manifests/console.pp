@@ -28,10 +28,10 @@ define conman::console (
   String $order = '50',
 ) {
 
-  include ::conman
+  include conman
 
   concat::fragment { "conman.conf.${name}":
-    target  => $::conman::cfgfile,
+    target  => $conman::cfgfile,
     content => template('conman/etc/conman.conf.console.erb'),
     order   => $order,
   }
