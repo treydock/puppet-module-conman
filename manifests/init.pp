@@ -117,7 +117,7 @@ class conman (
       notify    => Service['conman'],
     }
   }
-  if $ensure == 'present' {
+  if $server and $ensure == 'present' {
     concat::fragment { 'conman.conf.header':
       target  => $cfgfile,
       content => template('conman/etc/conman.conf.header.erb'),
