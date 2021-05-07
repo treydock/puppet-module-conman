@@ -4,5 +4,9 @@ fixtures:
       repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
     concat:
       repo: https://github.com/puppetlabs/puppetlabs-concat.git
+    yumrepo_core:
+      repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
+    epel:
+      repo: https://github.com/voxpupuli/puppet-epel.git
   symlinks:
     conman: "#{source_dir}"

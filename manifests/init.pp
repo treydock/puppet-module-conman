@@ -15,6 +15,8 @@
 #   The conman configuration file
 # @param consoles
 #   Hash of `conman::console` resources
+# @param manage_repo
+#   Manage repo to install conman, only used on EL8
 # @param coredump
 #   See conman.conf man page
 # @param coredumpdir
@@ -50,10 +52,11 @@
 class conman (
   Boolean $server = true,
   Enum['present', 'absent'] $ensure = 'present',
-  Stdlib::Host $conman_server = $::fqdn,
+  Stdlib::Host $conman_server = $facts['networking']['fqdn'],
   Stdlib::Port $conman_port = 7890,
   String $cfgfile = '/etc/conman.conf',
   Hash $consoles = {},
+  Boolean $manage_repo = true,
   # server config
   Boolean $coredump = false,
   Optional[Stdlib::Absolutepath] $coredumpdir = undef,
@@ -76,34 +79,45 @@ class conman (
 
   if $ensure == 'present' {
     $package_ensure = 'present'
-    $file_ensure    = 'file'
+    $cfg_ensure     = 'present'
     if $server {
+      $env_ensure     = 'absent'
       $service_ensure = 'running'
       $service_enable = true
     } else {
+      $env_ensure     = 'file'
       $service_ensure = 'stopped'
       $service_enable = false
     }
   } else {
     $package_ensure = 'absent'
-    $file_ensure    = 'absent'
+    $cfg_ensure     = 'absent'
+    $env_ensure     = 'absent'
     $service_ensure = 'stopped'
     $service_enable = false
+  }
+
+  if $manage_repo and $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
+    include epel
+    Class['epel'] -> Package['conman']
   }
 
   package { 'conman':
     ensure => $package_ensure,
   }
 
-  if $server {
+  if $server or $ensure == 'absent' {
     concat { $cfgfile:
-      ensure    => $ensure,
+      ensure    => $cfg_ensure,
       owner     => 'root',
       group     => 'root',
       mode      => '0640',
       show_diff => false,
       require   => Package['conman'],
+      notify    => Service['conman'],
     }
+  }
+  if $ensure == 'present' {
     concat::fragment { 'conman.conf.header':
       target  => $cfgfile,
       content => template('conman/etc/conman.conf.header.erb'),
@@ -114,35 +128,27 @@ class conman (
         * => $console,
       }
     }
-
-    service { 'conman':
-      ensure     => $service_ensure,
-      enable     => $service_enable,
-      hasrestart => true,
-      hasstatus  => true,
-      subscribe  => Concat[$cfgfile],
-    }
-  } else {
-    service { 'conman':
-      ensure  => $service_ensure,
-      enable  => $service_enable,
-      require => Package['conman'],
-    }
-
-    file { '/etc/profile.d/conman.sh':
-      ensure  => $file_ensure,
-      content => template('conman/etc/profile.d/conman.sh.erb'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-    }
-    file { '/etc/profile.d/conman.csh':
-      ensure  => $file_ensure,
-      content => template('conman/etc/profile.d/conman.csh.erb'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-    }
   }
 
+  service { 'conman':
+    ensure     => $service_ensure,
+    enable     => $service_enable,
+    hasrestart => true,
+    hasstatus  => true,
+  }
+
+  file { '/etc/profile.d/conman.sh':
+    ensure  => $env_ensure,
+    content => template('conman/etc/profile.d/conman.sh.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+  file { '/etc/profile.d/conman.csh':
+    ensure  => $env_ensure,
+    content => template('conman/etc/profile.d/conman.csh.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
 }

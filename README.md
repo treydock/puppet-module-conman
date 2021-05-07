@@ -1,7 +1,7 @@
 # puppet-module-conman
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/conman.svg)](https://forge.puppetlabs.com/treydock/conman)
-[![Build Status](https://travis-ci.org/osc/puppet-module-conman.png)](https://travis-ci.org/osc/puppet-module-conman)
+[![CI Status](https://github.com/treydock/puppet-module-conman/workflows/CI/badge.svg?branch=master)](https://github.com/treydock/puppet-module-conman/actions?query=workflow%3ACI)
 
 ####Table of Contents
 
@@ -21,7 +21,7 @@ This module will install and configure [ConMan: The Console Manager](https://git
 Install and configure conman and define a console
 
 ```puppet
-include ::conman
+include conman
 conman::console { 'compute01':
   device   => 'ipmi:bmc-compute01',
   ipmiopts => 'U:admin,P:bmcpassword',
@@ -31,7 +31,7 @@ conman::console { 'compute01':
 To configure a system as a conman client:
 
 ```puppet
-class { '::conman':
+class { 'conman':
   server        => false,
   conman_server => 'conman.example.com',
 }
@@ -41,8 +41,8 @@ This is an example of exporting console configurations for all physical servers:
 
 ```puppet
 if $facts['virtual'] == 'physical' {
-  @@conman::console { $::hostname:
-    device => "ipmi:bmc-${::hostname}",
+  @@conman::console { $facts['networking']['hostname']:
+    device => "ipmi:bmc-${facts['networking']['hostname']}",
   }
 }
 ```
