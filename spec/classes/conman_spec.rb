@@ -30,6 +30,13 @@ describe 'conman' do
       end
 
       it do
+        is_expected.to contain_concat__fragment('conman.conf.header').with(
+          target: '/etc/conman.conf',
+          order: '01',
+        )
+      end
+
+      it do
         is_expected.to contain_service('conman').only_with(
           ensure: 'running',
           enable: 'true',
@@ -47,6 +54,7 @@ describe 'conman' do
 
         it { is_expected.to contain_package('conman').with_ensure('present') }
         it { is_expected.not_to contain_concat('/etc/conman.conf') }
+        it { is_expected.not_to contain_concat__fragment('conman.conf.header') }
         it do
           is_expected.to contain_service('conman').only_with(
             ensure: 'stopped',
