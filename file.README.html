@@ -6,15 +6,15 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "";
   relpath = '';
 </script>
@@ -62,20 +62,20 @@
 
 <p><a href="https://forge.puppetlabs.com/treydock/conman"><img
 src="http://img.shields.io/puppetforge/v/treydock/conman.svg"></a> <a
-href="https://travis-ci.org/osc/puppet-module-conman"><img
-src="https://travis-ci.org/osc/puppet-module-conman.png"></a></p>
+href="https://github.com/treydock/puppet-module-conman/actions?query=workflow%3ACI"><img
+src="https://github.com/treydock/puppet-module-conman/workflows/CI/badge.svg?branch=master"></a></p>
 
 <h4 id="label-Table+of+Contents">Table of Contents</h4>
 <ol><li>
-<p><a href="#label-Setup">Setup - The basics of getting started with conman</a></p>
+<p><a href="#setup">Setup - The basics of getting started with conman</a></p>
 <ul><li>
-<p><a href="#label-What+conman+affects">What conman affects</a></p>
+<p><a href="#what-conman-affects">What conman affects</a></p>
 </li></ul>
 </li><li>
-<p><a href="#label-Usage">Usage - Configuration options and additional
+<p><a href="#usage">Usage - Configuration options and additional
 functionality</a></p>
 </li><li>
-<p><a href="#label-Reference">Reference - Module reference</a></p>
+<p><a href="#reference">Reference - Module reference</a></p>
 </li></ol>
 
 <h2 id="label-Setup">Setup</h2>
@@ -89,7 +89,7 @@ href="https://github.com/dun/conman">ConMan: The Console Manager</a>.</p>
 
 <p>Install and configure conman and define a console</p>
 
-<pre class="code ruby"><code class="ruby">include ::conman
+<pre class="code ruby"><code class="ruby">include conman
 conman::console { &#39;compute01&#39;:
   device   =&gt; &#39;ipmi:bmc-compute01&#39;,
   ipmiopts =&gt; &#39;U:admin,P:bmcpassword&#39;,
@@ -98,7 +98,7 @@ conman::console { &#39;compute01&#39;:
 
 <p>To configure a system as a conman client:</p>
 
-<pre class="code ruby"><code class="ruby">class { &#39;::conman&#39;:
+<pre class="code ruby"><code class="ruby">class { &#39;conman&#39;:
   server        =&gt; false,
   conman_server =&gt; &#39;conman.example.com&#39;,
 }
@@ -108,8 +108,8 @@ conman::console { &#39;compute01&#39;:
 servers:</p>
 
 <pre class="code ruby"><code class="ruby">if $facts[&#39;virtual&#39;] == &#39;physical&#39; {
-  @@conman::console { $::hostname:
-    device =&gt; &quot;ipmi:bmc-${::hostname}&quot;,
+  @@conman::console { $facts[&#39;networking&#39;][&#39;hostname&#39;]:
+    device =&gt; &quot;ipmi:bmc-${facts[&#39;networking&#39;][&#39;hostname&#39;]}&quot;,
   }
 }
 </code></pre>

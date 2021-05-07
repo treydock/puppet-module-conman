@@ -6,15 +6,15 @@
 <title>
   Defined Type: conman::console
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::conman::console";
   relpath = '../';
 </script>
@@ -205,6 +205,7 @@ alphabetically by name</p>
 </ul>
 
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -242,10 +243,10 @@ define conman::console (
   String $order = &#39;50&#39;,
 ) {
 
-  include ::conman
+  include conman
 
   concat::fragment { &quot;conman.conf.${name}&quot;:
-    target  =&gt; $::conman::cfgfile,
+    target  =&gt; $conman::cfgfile,
     content =&gt; template(&#39;conman/etc/conman.conf.console.erb&#39;),
     order   =&gt; $order,
   }
