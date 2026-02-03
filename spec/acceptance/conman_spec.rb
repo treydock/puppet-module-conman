@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'conman class:' do
-  context 'default parameters' do
+  context 'with default parameters' do
     it 'runs successfully' do
-      pp = <<-EOS
+      pp = <<-PP
       class { 'conman': }
       conman::console { 'compute01':
         device   => 'ipmi:bmc-compute01',
         ipmiopts => 'U:admin,P:bmcpassword',
       }
-      EOS
+      PP
 
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)

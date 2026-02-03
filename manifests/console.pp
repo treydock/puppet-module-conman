@@ -27,7 +27,6 @@ define conman::console (
   Optional[String] $ipmiopts = undef,
   String $order = '50',
 ) {
-
   include conman
 
   concat::fragment { "conman.conf.${name}":

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'conman' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "when #{os}" do
       let(:facts) do
         facts
       end
@@ -55,6 +57,7 @@ describe 'conman' do
         it { is_expected.to contain_package('conman').with_ensure('present') }
         it { is_expected.not_to contain_concat('/etc/conman.conf') }
         it { is_expected.not_to contain_concat__fragment('conman.conf.header') }
+
         it do
           is_expected.to contain_service('conman').only_with(
             ensure: 'stopped',
@@ -64,9 +67,10 @@ describe 'conman' do
             hasrestart: 'true',
           )
         end
+
         it { is_expected.to contain_file('/etc/profile.d/conman.sh').with_ensure('file') }
         it { is_expected.to contain_file('/etc/profile.d/conman.csh').with_ensure('file') }
       end
-    end # end context
-  end # end on_supported_os loop
-end # end describe
+    end
+  end
+end

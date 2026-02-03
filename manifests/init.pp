@@ -76,7 +76,6 @@ class conman (
   String $seropts = '9600,8n1',
   Optional[String] $ipmiopts = undef,
 ) {
-
   if $ensure == 'present' {
     $package_ensure = 'present'
     $cfg_ensure     = 'present'
